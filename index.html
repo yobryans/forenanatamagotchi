@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Andrea 💕✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5f2 50%, #c9e4f5 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Pantalla de Inicio */
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5f2 50%, #c9e4f5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-screen::before {
+            content: '✨';
+            position: absolute;
+            font-size: 50px;
+            animation: float 3s ease-in-out infinite;
+            top: 20%;
+            left: 10%;
+        }
+
+        .login-screen::after {
+            content: '💫';
+            position: absolute;
+            font-size: 40px;
+            animation: float 4s ease-in-out infinite;
+            bottom: 20%;
+            right: 15%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box h1 {
+            font-family: 'Playfair Display', serif;
+            color: #d4a5d4;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .login-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: #a8c5e8;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .login-box p {
+            color: #888;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e8d5f2;
+            border-radius: 25px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #d4a5d4;
+            box-shadow: 0 0 15px rgba(212, 165, 212, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #d4a5d4 0%, #a8c5e8 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 165, 212, 0.4);
+        }
+
+        .error-message {
+            color: #ff6b9d;
+            margin-top: 15px;
+            font-weight: 500;
+            display: none;
+        }
+
+        /* Pantalla de Carga */
+        .loading-screen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5f2 50%, #c9e4f5 100%);
+            flex-direction: column;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(212, 165, 212, 0.3);
+            border-top: 8px solid #d4a5d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #d4a5d4;
+            font-weight: 600;
+        }
+
+        /* Pantalla de Bienvenida */
+        .welcome-screen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5f2 50%, #c9e4f5 100%);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .welcome-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .welcome-box h1 {
+            font-family: 'Playfair Display', serif;
+            color: #d4a5d4;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .welcome-box p {
+            color: #888;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Página Principal */
+        .main-content {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            color: #d4a5d4;
+            font-size: 3.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #a8c5e8;
+            font-size: 1.3em;
+            font-weight: 300;
+        }
+
+        .taylor-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .taylor-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+            animation: fadeIn 1s ease;
+        }
+
+        .taylor-img:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 165, 212, 0.4);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+            border: 3px solid #ffd1dc;
+        }
+
+        .message-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.15em;
+        }
+
+        .player-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.4s ease;
+            border: 3px solid #e8d5f2;
+        }
+
+        .player-title {
+            font-family: 'Playfair Display', serif;
+            color: #d4a5d4;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .playlist-container {
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5f2 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        .playlist-embed {
+            width: 100%;
+            height: 380px;
+            border-radius: 15px;
+            border: none;
+        }
+
+        .song {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+
+        .song:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(212, 165, 212, 0.3);
+            border-color: #d4a5d4;
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #d4a5d4;
+            font-size: 1.1em;
+        }
+
+        .song-album {
+            font-size: 0.9em;
+            color: #a8c5e8;
+        }
+
+        .spotify-btn {
+            background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .spotify-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+
+        .note {
+            text-align: center;
+            color: #d4a5d4;
+            font-size: 1em;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 2.5em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .login-box {
+                padding: 40px 30px;
+            }
+
+            .taylor-images {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Login -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h1>✨ Hola Andrea Tamagotchi! ✨</h1>
+            <h2>💕</h2>
+            <p>Tu mejor amigo te hizo esta página, pero tiene contraseña... ¿Sabrás cuál es? 🤔</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Escribe la contraseña...">
+            <button class="submit-btn" onclick="checkPassword()">Entrar ✨</button>
+            <p class="error-message" id="errorMessage">❌ Contraseña incorrecta. ¡Inténtalo de nuevo!</p>
+        </div>
+    </div>
+
+    <!-- Pantalla de Carga -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <p class="loading-text">Cargando tu sorpresa... ✨</p>
+    </div>
+
+    <!-- Pantalla de Bienvenida -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-box">
+            <h1>¡Bienvenida Andrea!</h1>
+            <p>✨ Preparé esto con mucho cariño para ti ✨</p>
+            <p> Aun que seas bien grosera conmigo tekieromusho amia AJASJAJ </p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <h1>💕 Para Andrea 💕</h1>
+            <p class="subtitle">Tu playlist especial de Taylor Swift ✨</p>
+        </div>
+
+        <div class="taylor-images">
+            <img src="https://ca-times.brightspotcdn.com/dims4/default/ddb0a69/2147483647/strip/true/crop/3180x2126+0+0/resize/1200x802!/format/webp/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F57%2Ff6%2F3b7cd77299003ff3cd4e05c0dc83%2F8b2de8605acf4755bd8e22cc610dfca5" alt="Taylor Swift aesthetic" class="taylor-img">
+            <img src="https://media.vogue.mx/photos/64e15be96e16315ea8208e2c/master/pass/taylor-swift-cantante.jpg" alt="Music aesthetic" class="taylor-img">
+            <img src="https://provimarcas.com/wp-content/uploads/2025/09/Taylor-Swift.jpg" alt="Concert aesthetic" class="taylor-img">
+        </div>
+
+        <div class="container">
+            <div class="message-card">
+                <p>
+                    ✨ Hola Enana, se que no soy un amigo muy detallista y todo eso y pido una disculpa por eso, pero aqui te hice un detallito y espero te guste,
+                    se lo mucho que te gusta Taylor (No te emociones, sigue siendo mi esposa) y quise hacerte esta pagina con tematica de Taylor Swift, espero te guste
+                    yyyyy, ahi tiene link a una playlist de Taylor y mas canciones, muchas gracias por ser la mejor amikita del universo, aprecio mucho tu amistad y espero
+                    dure muchos años mas, tecueme amigaza <3 
+                </p>
+            </div>
+
+            <div class="player-section">
+                <h2 class="player-title">🎵 Tu Playlist de Taylor Swift 🎵</h2>
+                
+                <div class="playlist-container">
+                    <iframe class="playlist-embed" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <p class="note">💝 Haz clic en cualquier canción para escucharla en Spotify 💝</p>
+
+                <a href="https://open.spotify.com/track/0cqRj7pUJDkTCEsJkx8snD" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">Shake It Off</div>
+                        <div class="song-album">1989</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+
+                <a href="https://open.spotify.com/track/1p80LdxRV74UKvL8gnD7ky" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">Blank Space</div>
+                        <div class="song-album">1989</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+
+                <a href="https://open.spotify.com/track/0V3wPSX9ygBnCm8psDIegu" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">Anti-Hero</div>
+                        <div class="song-album">Midnights</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+
+                <a href="https://open.spotify.com/track/3CeCwYWvdfXbZLXFhBrbnf" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">Love Story</div>
+                        <div class="song-album">Fearless</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+
+                <a href="https://open.spotify.com/track/1qrpoAMXodY6895hGKoUpA" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">You Belong With Me</div>
+                        <div class="song-album">Fearless</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+
+                <a href="https://open.spotify.com/track/5YqltLsjdqFtvqE7Nrysvs" target="_blank" class="song">
+                    <div class="song-info">
+                        <div class="song-title">We Are Never Ever Getting Back Together</div>
+                        <div class="song-album">Red</div>
+                    </div>
+                    <div class="spotify-btn">🎵 Spotify</div>
+                </a>
+            </div>
+
+            <div class="footer">
+                💖✨🎶✨💖
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password.toLowerCase() === 'tamagotchi') {
+                // Ocultar pantalla de login
+                document.getElementById('loginScreen').classList.add('hidden');
+                
+                // Mostrar pantalla de carga
+                document.getElementById('loadingScreen').style.display = 'flex';
+                
+                // Después de 2 segundos, mostrar bienvenida
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').classList.add('hidden');
+                    document.getElementById('welcomeScreen').style.display = 'flex';
+                    
+                    // Después de 3 segundos, mostrar contenido principal
+                    setTimeout(() => {
+                        document.getElementById('welcomeScreen').classList.add('hidden');
+                        document.getElementById('mainContent').style.display = 'block';
+                    }, 3000);
+                }, 2000);
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').style.borderColor = '#ff6b9d';
+                
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                    document.getElementById('passwordInput').style.borderColor = '#e8d5f2';
+                }, 3000);
+            }
+        }
+
+        // Permitir enter para enviar
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
